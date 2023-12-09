@@ -1,0 +1,41 @@
+{
+  "name": "asclepius",
+  "version": "1.0.0",
+  "description": "Web Programming I project: Development of a Rest API, with TypeScript, Node.js and Prisma, working on the concepts of CRUD, Authentication and File Upload.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest src/__test__/unitTests",
+    "test:integration": "npx prisma migrate dev && jest src/__test__/integrationTests && rimraf ./prisma/test.db",
+    "dev": "tsx watch src/server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.8",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.9.2",
+    "@types/supertest": "^2.0.16",
+    "@types/uuid": "^9.0.7",
+    "jest": "^29.7.0",
+    "prisma": "^5.6.0",
+    "rimraf": "^5.0.5",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "tsx": "^4.1.4",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "bcryptjs": "^2.4.3",
+    "date-fns": "^2.30.0",
+    "express": "^4.18.2",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.1"
+  }
+}
