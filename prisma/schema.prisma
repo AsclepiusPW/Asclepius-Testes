@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" //Modificar o banco de dados depois
+  url      = env("DATABASE_URL") //Lembrar de modificar o .env do projeto
+}
+
+//Criando entidades:
+
+
+//Entidade usuário
+model User{
+  id String @id @default(uuid()) @map("_id") //Se for usar o mongodb lembra do @map(_id)
+  name String
+  password String
+  image String?
+  email String @unique
+  telefone String @unique
+  latitude Float
+  longitude Float
+  vaccination Vaccination[] 
+  requestReservation RequestReservation[]
+}
+
+//Entidade Vacina
+model Vaccine{
+  id String @id @default(uuid()) @map("_id")
+  name String @unique
+  type String
+  manufacturer String //Atributo fabricante
+  description String
+  contraIndication String
+  vaccination Vaccination[]
+  vaccinationCalendar VaccinationCalendar[]
+}
+
+//Entidade Calendário de vacinação
+model VaccinationCalendar{
+  id String @id @default(uuid()) @map("_id")
+  local String
+  date DateTime
+  places Int
+  status String?
+  observation String?
+  responsible String
+  idVaccine String
+  vaccine Vaccine @relation(fields: [idVaccine], references: [id])
+  requestReservation RequestReservation[]
+}
+
+//Relacionamentos
+//Relação vacinação (Usuário e vacina)
+model Vaccination{
+  id String @id @default(uuid()) @map("_id")
+  date DateTime
+  quantityApplied Int?
+  idUser String?
+  idVaccine String
+  user User? @relation(fields: [idUser], references: [id])
+  vaccine Vaccine @relation(fields: [idVaccine], references: [id])
+}
+
+//Relação solicitarReserva (Usuário e vacina)
+model RequestReservation{
+  id String @id @default(uuid()) @map("_id")
+  status String
+  date DateTime
+  idUser String?
+  idCalendar String?
+  calendar VaccinationCalendar? @relation(fields: [idCalendar], references: [id])
+  user User? @relation(fields: [idUser], references: [id])
+}
